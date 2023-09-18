@@ -10,66 +10,66 @@ import java.util.Map;
 
 Example json:
 {
-    offerId: "",
-    journeyId: "",
-    flowId: "",
-    deciderNodesMap: {
-        0: {
-            id: 0,
-            typeStep: "BIG_DATA",
-            conditionDecider: [
+    "offerId": "",
+    "journeyId": "",
+    "flowId": "",
+    "deciderNodesMap": {
+        "0": {
+            "id": 0,
+            "typeStep": "BIG_DATA",
+            "conditionDecider": [
                 {
-                    expressionConditions: [
+                    "expressionConditions": [
                         {
-                            predicate: "resultA.score",
-                            operator: "BIGGER_THAN",
-                            expectedResult: "700"
+                            "predicate": "resultA.score",
+                            "operator": "BIGGER_THAN",
+                            "expectedResult": "700"
                         },
                         {
-                            predicate: "resultB.employer.status",
-                            operator: "EQUALS",
-                            expectedResult: "ACTIVE"
+                            "predicate": "resultB.employer.status",
+                            "operator": "EQUALS",
+                            "expectedResult": "ACTIVE"
                         }
                     ],
-                    agregationEnums: [
+                    "agregationEnums": [
                         "AND"
                     ],
-                    idDeciderNodeDestiny: 2
+                    "idDeciderNodeDestiny": 2
                 }
             ],
-            idDeciderNodeSubstitute: 1
+            "idDeciderNodeSubstitute": 1
         },
-        1: {
-            id: 1,
-            typeStep: "THINK_DATA",
-            stepResult: "SUCESS"
-            conditionDecider: [
+        "1": {
+            "id": 1,
+            "typeStep": "THINK_DATA",
+            "stepResult": "SUCESS",
+            "conditionDecider": [
                 {
-                    expressionConditions: [
+                    "expressionConditions": [
                         {
-                            predicate: "resultA.thinkData.score",
-                            operator: "BIGGER_THAN",
-                            expectedResult: "700"
+                            "predicate": "resultA.thinkData.score",
+                            "operator": "BIGGER_THAN",
+                            "expectedResult": "700"
                         },
                         {
-                            predicate: "resultB.register.status",
-                            operator: "EQUALS",
-                            expectedResult: "ACTIVE"
+                            "predicate": "resultB.register.status",
+                            "operator": "EQUALS",
+                            "expectedResult": "ACTIVE"
                         }
                     ],
-                    agregationEnums: [
+                    "agregationEnums": [
                         "OR"
                     ],
-                    idDeciderNodeDestiny: 2
+                    "idDeciderNodeDestiny": 2
                 }
             ],
-            idDeciderNodeSubstitute: null
+            "idDeciderNodeSubstitute": null
         },
-        2: {
-            id: 2,
-            typeStep: "TELESIGN",
-            conditionDecider: [],
-            idDeciderNodeSubstitute: null
+        "2": {
+            "id": 2,
+            "typeStep": "TELESIGN",
+            "conditionDecider": [],
+            "idDeciderNodeSubstitute": null
         }
     }
 }
@@ -79,7 +79,7 @@ Example json:
 @AllArgsConstructor
 public class DeciderTemplate {
     private String offerId;
-    private String journeyid;
+    private String journeyId;
     private String flowId;
     private Map<Integer, DeciderNode> deciderNodesMap;
 }

@@ -1,5 +1,6 @@
 package org.example.decider;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.Step;
 import org.example.Transaction;
 import org.example.repository.IDeciderTemplateRepository;
@@ -8,19 +9,19 @@ import org.apache.commons.beanutils.PropertyUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class DecideExecutor {
+public class DeciderExecutor {
 
 
     private final IDeciderTemplateRepository iDeciderTemplateRepository;
 
-    public DecideExecutor(IDeciderTemplateRepository iDeciderTemplateRepository) {
+    public DeciderExecutor(IDeciderTemplateRepository iDeciderTemplateRepository) {
         this.iDeciderTemplateRepository = iDeciderTemplateRepository;
     }
 
     /*
         Current step in Step
          */
-    public String getTypeOfNextStep(Transaction transaction, Step step) {
+    public String getTypeOfNextStep(Transaction transaction, Step step) throws JsonProcessingException {
         DeciderTemplate deciderTemplate = iDeciderTemplateRepository.getDeciderTemplateById(transaction.getFlow().getId()); //Here must be substituted by the correct search in database
         Integer IdCurrentDeciderNode = transaction.getDeciderModelTrail() != null &&
                                        !transaction.getDeciderModelTrail().isEmpty() ?
@@ -61,9 +62,9 @@ public class DecideExecutor {
                 case BIGGER_OR_EQUALS_THAN -> {
                     return Double.parseDouble(expressionCondition.getExpectedResult()) >= Double.parseDouble(valueToGet);
                 }
-                case BIGGER_THAN -> { return Double.parseDouble(expressionCondition.getExpectedResult()) > Double.parseDouble(valueToGet); }
-                case LESS_OR_EQUALS_THAN -> { return Double.parseDouble(expressionCondition.getExpectedResult()) <= Double.parseDouble(valueToGet); }
-                case LESS_THAN -> { return Double.parseDouble(expressionCondition.getExpectedResult()) < Double.parseDouble(valueToGet); }
+                case BIGGER_THAN -> { return Double.parseDouble(valueToGet) > Double.parseDouble(expressionCondition.getExpectedResult()); }
+                case LESS_OR_EQUALS_THAN -> { return Double.parseDouble(valueToGet) <= Double.parseDouble(expressionCondition.getExpectedResult()); }
+                case LESS_THAN -> { return Double.parseDouble(valueToGet) < Double.parseDouble(expressionCondition.getExpectedResult()); }
                 case NOT_EQUALS -> { return !expressionCondition.getExpectedResult().equals(valueToGet); }
                 default -> { return false; }
             }
